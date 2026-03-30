@@ -11,7 +11,7 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-This project is a small music recommender that uses song metadata to estimate which tracks best match a user's vibe. Real streaming platforms like Spotify and YouTube combine collaborative filtering, which learns from patterns in many users' likes, skips, playlists, and repeat behavior, with content-based filtering, which looks at the song's own attributes such as genre, mood, energy, and tempo.
+This project is a  music recommender that uses song data to figure out which tracks best match a user's vibe. Real streaming platforms like Spotify and YouTube use collaborative filtering, which learns from patterns in many users' likes, skips, playlists, and repeat behavior, with content-based filtering, which looks at the song's own attributes such as genre, mood, energy, and tempo.
 
 
 ## How The System Works
