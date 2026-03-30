@@ -11,23 +11,19 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
-
+This project simulates a small music recommender that uses song metadata to estimate which tracks best match a user's vibe. Real streaming platforms like Spotify and YouTube combine collaborative filtering, which learns from patterns in many users' likes, skips, playlists, and repeat behavior, with content-based filtering, which looks at the song's own attributes such as genre, mood, energy, and tempo.
 ---
 
 ## How The System Works
 
-Explain your design in plain language.
+Real-world recommenders score each candidate item by combining user-behavior signals such as likes, skips, saves, playlists, and listening history with content signals such as tempo, mood, or other learned attributes. The difference between collaborative filtering and content-based filtering is that collaborative filtering uses the behavior of similar users, while content-based filtering uses the characteristics of the song itself. Real-world recommendation systems also rank the scored items from best to worst so the app can choose what to show first.
 
-Some prompts to answer:
+The scoring rule gives points for one song at a time. A genre match should matter most, mood match next, then energy similarity should reward songs that are closer to the user's target rather than simply higher or lower. One simple version is to subtract the absolute energy difference from 1, so a song at `0.78` scores better for a user targeting `0.80` than a song at `0.30` or `0.98`. Acousticness can add a smaller bonus or penalty depending on whether the user likes acoustic songs. After every song has a total score, the ranking rule sorts all songs from highest score to lowest score and returns the top `k` recommendations.
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+Features used in the simulation:
 
-You can include a simple diagram or bullet list if helpful.
+- `Song`: `genre`, `mood`, `energy`, `tempo_bpm`, `valence`, `danceability`, `acousticness`
+- `UserProfile`: `favorite_genre`, `favorite_mood`, `target_energy`, `likes_acoustic`
 
 ---
 
@@ -208,4 +204,3 @@ A few sentences about what you learned:
 - What surprised you about how your system behaved
 - How did building this change how you think about real music recommenders
 - Where do you think human judgment still matters, even if the model seems "smart"
-
