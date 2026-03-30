@@ -58,6 +58,18 @@ Features used in the simulation:
 - `Song`: `genre`, `mood`, `energy`, `tempo_bpm`, `valence`, `danceability`, `acousticness`
 - `UserProfile`: `favorite_genre`, `favorite_mood`, `target_energy`, `likes_acoustic`
 
+CLI preview:
+
+```text
+Loaded songs: 18
+
+Top recommendations:
+
+1. Sunrise City by Neon Echo
+   Score: 5.22
+   Reasons: genre match (+2.0), mood match (+1.0), energy closeness (+1.47), acoustic preference match (+0.75)
+```
+
 ---
 
 ## Getting Started
