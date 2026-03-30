@@ -16,9 +16,42 @@ This project simulates a small music recommender that uses song metadata to esti
 
 ## How The System Works
 
-Real-world recommenders score each candidate item by combining user-behavior signals such as likes, skips, saves, playlists, and listening history with content signals such as tempo, mood, or other learned attributes. The difference between collaborative filtering and content-based filtering is that collaborative filtering uses the behavior of similar users, while content-based filtering uses the characteristics of the song itself. Real-world recommendation systems also rank the scored items from best to worst so the app can choose what to show first.
+Real-world apps mix collaborative filtering, based on other users' behavior, with content-based filtering, based on the song's own features. This simulation uses the content-based approach and scores songs from `data/songs.csv` using genre, mood, energy, tempo, valence, danceability, and acousticness.
 
-The scoring rule gives points for one song at a time. A genre match should matter most, mood match next, then energy similarity should reward songs that are closer to the user's target rather than simply higher or lower. One simple version is to subtract the absolute energy difference from 1, so a song at `0.78` scores better for a user targeting `0.80` than a song at `0.30` or `0.98`. Acousticness can add a smaller bonus or penalty depending on whether the user likes acoustic songs. After every song has a total score, the ranking rule sorts all songs from highest score to lowest score and returns the top `k` recommendations.
+My planned `UserProfile` is:
+
+- `favorite_genre`: `lofi`
+- `favorite_mood`: `focused`
+- `target_energy`: `0.40`
+- `likes_acoustic`: `True`
+- optional future targets: `target_valence`, `target_danceability`
+
+This profile should separate intense songs from chill lofi by combining category matches with low target energy and a preference for acoustic tracks.
+
+Algorithm recipe:
+
+- Start every song at `0.0`
+- Add `+2.0` points if the song's `genre` matches the user's favorite genre
+- Add `+1.0` point if the song's `mood` matches the user's favorite mood
+- Add up to `+1.5` points for energy similarity using `1 - abs(song_energy - target_energy)`
+- Add `+0.75` points if the song's `acousticness` aligns with whether the user likes acoustic songs
+
+The scoring rule judges one song at a time. The ranking rule sorts all songs by score and returns the top `k`.
+
+Data flow:
+
+```mermaid
+flowchart LR
+    A[User Preferences] --> B[Load Songs from CSV]
+    B --> C[Loop Through Each Song]
+    A --> C
+    C --> D[Apply Scoring Rule]
+    D --> E[Store Song Score]
+    E --> F[Rank All Songs]
+    F --> G[Return Top K Recommendations]
+```
+
+Expected bias: this system may over-prioritize genre and miss songs from other genres with a similar vibe.
 
 Features used in the simulation:
 
